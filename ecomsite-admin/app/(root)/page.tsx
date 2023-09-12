@@ -1,10 +1,25 @@
-//app/page.tsx
-import { UserButton } from "@clerk/nextjs";
+"use client";
 
-export default function Home() {
+import { Modal } from "@/components/ui/modal";
+import { useStoreModal } from "@/hooks/use-store-modal";
+import { UserButton } from "@clerk/nextjs";
+import { useEffect } from "react";
+
+const SetUpPage = () => {
+
+  const onOpen = useStoreModal((state) => state.onOpen);
+  const isOpen = useStoreModal((state) => state.isOpen);
+
+  useEffect(() => {
+    if (!isOpen) {
+      onOpen();
+    }
+  }, [isOpen, onOpen]);
   return (
     <div>
-      <UserButton afterSignOutUrl="/"/>
-    </div>
+      RootPage
+    </div >
   )
 }
+
+export default SetUpPage;
